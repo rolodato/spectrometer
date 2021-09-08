@@ -33,6 +33,7 @@
   - [Remote dependencies](#remote-dependencies)
   - [Errors in the `fossa-deps` file](#errors-in-the-fossa-deps-file)
   - [License scanning local dependencies](#license-scanning-local-dependencies)
+- [Discovering binaries in the source tree as dependencies](#discovering-binaries-in-the-source-tree-as-dependencies)
 - [`fossa test`](#fossa-test)
   - [Specifying a timeout](#specifying-a-timeout)
   - [Print issues as JSON](#print-issues-as-json)
@@ -415,6 +416,45 @@ We also support json-formatted dependencies:
   ]
 }
 ```
+
+## Discovering binaries in the source tree as dependencies
+
+> **Important**: This functionality is _experimental_, and may change in future releases until it is stabilized.
+> Until it is, we do not provide backwards compatibility guarantees for this feature.
+
+Fossa supports the ability to flag all binary dependencies discovered in your project source tree as unlicensed dependencies via an opt in flag.
+
+The core idea behind this feature is that some organizations wish to validate all potential sources of intellectual property rights, and binaries are potential sources of intellectual property rights data for which we typically cannot automatically discover licensing information.
+
+To enable this feature, run `fossa analyze` with the `--experimental-enable-binary-discovery` flag.
+
+Since this flag is experimental, it does not currently appear in `fossa -h`.
+
+### Displaying discovered binaries
+
+Binaries discovered via this feature are displayed in the FOSSA UI as `user` dependencies.
+
+The name of the dependency is the path to the binary within the project, and the version of the dependency is the hash of the binary file that was discovered.
+The description of the dependency is "Binary discovered in source tree".
+
+### Correcting discovered binaries
+
+Most binaries cannot be statically analyzed for licensing or other information. As such, users need to correct the information about the binary using the standard Fossa corrections flow.
+Users are able to edit the information about the binary, such as its name or licensing information. Users may also ignore binaries that are not relevant.
+
+These corrections persist in future revisions of the project so long as the binary does not move to a different path in the project.
+If it does, the binary appears in the list again without any corrections.
+
+If the binary content changes but stays at the same location on disk, these corrects persist and a different hash is displayed in the version field of the dependency.
+
+### What files are defined as binaries?
+
+Fossa detects binaries in the same manner as git: we inspect the first 8000 bytes of the file (or the whole file if less than 8000 bytes).
+If it contains a NUL (0) byte, we consider the file to be binary.
+
+### Filtering discovered binaries
+
+This feature has the potential to be quite noisy, as most projects have many binary files. This feature supports the standard `--exclude-path` and `--only-path` flags to customize the parts of the project inspected for binaries.
 
 ## `fossa test`
 
