@@ -11,6 +11,7 @@
   - [clojure](#clojure)
   - [dart](#dart)
   - [erlang](#erlang)
+  - [fortran](#fortran)
   - [golang](#golang)
   - [haskell](#haskell)
   - [java](#java)
@@ -97,6 +98,10 @@ fossa analyze --help
 ### elixir
 
 - [mix](quickreference/mix.md)
+
+### fortran
+
+- [fpm](strategies/fortran.md)
 
 ### golang
 
