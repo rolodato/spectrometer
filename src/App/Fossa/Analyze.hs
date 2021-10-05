@@ -1,4 +1,5 @@
 {-# LANGUAGE RecordWildCards #-}
+{-# OPTIONS_GHC -Wno-unused-imports #-}
 
 module App.Fossa.Analyze (
   analyzeMain,
@@ -84,7 +85,7 @@ import Strategy.Haskell.Stack qualified as Stack
 import Strategy.Leiningen qualified as Leiningen
 import Strategy.Maven qualified as Maven
 import Strategy.Mix qualified as Mix
-import Strategy.Npm qualified as Npm
+import Strategy.Node qualified as Node
 import Strategy.NuGet.Nuspec qualified as Nuspec
 import Strategy.NuGet.PackageReference qualified as PackageReference
 import Strategy.NuGet.PackagesConfig qualified as PackagesConfig
@@ -99,7 +100,6 @@ import Strategy.RPM qualified as RPM
 import Strategy.Rebar3 qualified as Rebar3
 import Strategy.Scala qualified as Scala
 import Strategy.SwiftPM qualified as SwiftPM
-import Strategy.Yarn qualified as Yarn
 import System.Exit (die)
 import Types (DiscoveredProject (..), FoundTargets)
 import VCS.Git (fetchGitContributors)
@@ -193,38 +193,37 @@ analyzeMain workdir recordMode logSeverity destination project unpackArchives js
 
 discoverFuncs :: (TaskEffs sig m, TaskEffs rsig run) => [Path Abs Dir -> m [DiscoveredProject run]]
 discoverFuncs =
-  [ Bundler.discover
-  , Cabal.discover
-  , Cargo.discover
-  , Carthage.discover
-  , Cocoapods.discover
-  , Composer.discover
-  , Conda.discover
-  , Glide.discover
-  , Godep.discover
-  , Gomodules.discover
-  , Gradle.discover
-  , Leiningen.discover
-  , Maven.discover
-  , Mix.discover
-  , Npm.discover
-  , Nuspec.discover
-  , PackageReference.discover
-  , PackagesConfig.discover
-  , Paket.discover
-  , Pipenv.discover
-  , Poetry.discover
-  , ProjectAssetsJson.discover
-  , ProjectJson.discover
-  , Pub.discover
-  , RPM.discover
-  , Rebar3.discover
-  , RepoManifest.discover
-  , Scala.discover
-  , Setuptools.discover
-  , Stack.discover
-  , SwiftPM.discover
-  , Yarn.discover
+  [ --   Bundler.discover
+    -- , Cabal.discover
+    -- , Cargo.discover
+    -- , Carthage.discover
+    -- , Cocoapods.discover
+    -- , Composer.discover
+    -- , Conda.discover
+    -- , Glide.discover
+    -- , Godep.discover
+    -- , Gomodules.discover
+    -- , Gradle.discover
+    -- , Leiningen.discover
+    -- , Maven.discover
+    -- , Mix.discover
+    Node.discover
+    -- , Nuspec.discover
+    -- , PackageReference.discover
+    -- , PackagesConfig.discover
+    -- , Paket.discover
+    -- , Pipenv.discover
+    -- , Poetry.discover
+    -- , ProjectAssetsJson.discover
+    -- , ProjectJson.discover
+    -- , Pub.discover
+    -- , RPM.discover
+    -- , Rebar3.discover
+    -- , RepoManifest.discover
+    -- , Scala.discover
+    -- , Setuptools.discover
+    -- , Stack.discover
+    -- , SwiftPM.discover
   ]
 
 runDependencyAnalysis ::

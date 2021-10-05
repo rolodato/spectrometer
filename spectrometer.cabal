@@ -230,6 +230,8 @@ library
     Graphing
     Graphing.Hydrate
     Network.HTTP.Req.Extra
+    Parse.XML
+    Path.Extra
     Srclib.Converter
     Srclib.Types
     Strategy.Android.Util
@@ -273,10 +275,13 @@ library
     Strategy.Maven.Pom.PomFile
     Strategy.Maven.Pom.Resolver
     Strategy.Mix
-    Strategy.Node.NpmList
-    Strategy.Node.NpmLock
+    Strategy.Node
+    Strategy.Node.Npm.PackageLock
     Strategy.Node.PackageJson
-    Strategy.Npm
+    Strategy.Node.YarnV1.YarnLock
+    Strategy.Node.YarnV2.Lockfile
+    Strategy.Node.YarnV2.Resolvers
+    Strategy.Node.YarnV2.YarnLock
     Strategy.NuGet.Nuspec
     Strategy.NuGet.PackageReference
     Strategy.NuGet.PackagesConfig
@@ -298,16 +303,11 @@ library
     Strategy.Ruby.BundleShow
     Strategy.Ruby.GemfileLock
     Strategy.Scala
-    Strategy.SwiftPM
     Strategy.Swift.PackageResolved
     Strategy.Swift.PackageSwift
     Strategy.Swift.Xcode.Pbxproj
     Strategy.Swift.Xcode.PbxprojParser
-    Strategy.Yarn
-    Strategy.Yarn.V1.YarnLock
-    Strategy.Yarn.V2.Lockfile
-    Strategy.Yarn.V2.Resolvers
-    Strategy.Yarn.V2.YarnLock
+    Strategy.SwiftPM
     Text.URI.Builder
     Types
     VCS.Git
@@ -356,8 +356,8 @@ test-suite unit-tests
     Conda.EnvironmentYmlSpec
     Control.Carrier.DiagnosticsSpec
     Dart.PubDepsSpec
-    Dart.PubSpecSpec
     Dart.PubSpecLockSpec
+    Dart.PubSpecSpec
     Discovery.ArchiveSpec
     Discovery.FiltersSpec
     Effect.ExecSpec
@@ -403,12 +403,12 @@ test-suite unit-tests
     Ruby.GemfileLockSpec
     Swift.PackageResolvedSpec
     Swift.PackageSwiftSpec
-    Swift.Xcode.PbxprojSpec
     Swift.Xcode.PbxprojParserSpec
+    Swift.Xcode.PbxprojSpec
     Test.Effect
+    Yarn.V1.YarnLockV1Spec
     Yarn.V2.LockfileSpec
     Yarn.V2.ResolversSpec
-    Yarn.YarnLockV1Spec
 
   build-tool-depends: hspec-discover:hspec-discover ^>=2.8.2
   build-depends:
