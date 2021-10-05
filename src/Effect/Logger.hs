@@ -17,6 +17,7 @@ module Effect.Logger (
   logWarn,
   logError,
   logStdout,
+  renderIt,
   module X,
 ) where
 
